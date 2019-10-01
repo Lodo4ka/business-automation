@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 export default {
   data() {
@@ -99,7 +99,7 @@ export default {
       }
     });
   },
-  computed: mapState(["auth"]),
+  // computed: mapState(["auth"]),
   methods: {
     loginForm() {
       if (this.remember) {
