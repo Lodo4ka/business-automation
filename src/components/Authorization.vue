@@ -46,7 +46,11 @@
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3"></div>
         <label class="md:w-2/3 block text-gray-500 font-bold">
-          <input class="mr-2 leading-tight" type="checkbox" />
+          <input
+            v-model="remember"
+            class="mr-2 leading-tight"
+            type="checkbox"
+          />
           <span class="text-sm">
             Запомнить меня на сайте
           </span>
@@ -75,32 +79,59 @@ export default {
   data() {
     return {
       login: "",
-      password: ""
+      password: "",
+      remember: false
     };
   },
-  created() {
-    // const { login, password } = this.$store.getters.loginPassword;
-    // if (login && password) {
-    //   this.$router.push("/profile");
-    // }
+  mounted() {
+    this.$store.subscribe(mutation => {
+      switch (mutation.type) {
+        case "loginWithRemember": {
+          this.routeToProfile();
+          break;
+        }
+        case "loginWithoutRemember": {
+          this.routeToProfile();
+          break;
+        }
+        default:
+          break;
+      }
+    });
   },
   computed: mapState(["auth"]),
   methods: {
     loginForm() {
-      this.$store.dispatch("login", {
-        login: this.login,
-        password: this.password
+      if (this.remember) {
+        this.$store.dispatch("loginWithRemember", {
+          login: this.login,
+          password: this.password
+        });
+      } else {
+        this.$store.dispatch("loginWithoutRemember", {
+          login: this.login,
+          password: this.password
+        });
+      }
+    },
+    routeToProfile() {
+      this.$router.push({
+        name: "profile",
+        params: {
+          login: this.login,
+          password: this.password
+        }
       });
     }
-  },
-  watch: {
-    auth: {
-      deep: true,
-      handler(newVal) {
-        console.log(this.auth);
-        console.log(newVal);
-      }
-    }
   }
+  // watch: {
+  //   auth: {
+  //     deep: true,
+  //     handler(newVal) {
+  //       console.log(this.auth);
+  //       console.log(newVal);
+  //     }
+  //   }
+  // }
 };
 </script>

@@ -1,9 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "./store";
-import PageNotFound from "./components/PageNotFound";
+// import store from "./store";
 
 Vue.use(Router);
+let login = localStorage.getItem("login");
+let password = localStorage.getItem("password");
 
 const router = new Router({
   mode: "history",
@@ -24,29 +25,27 @@ const router = new Router({
     },
     {
       path: "*",
-      component: PageNotFound,
-      meta: {
-        requiresAuth: true
-      }
+      redirect: "profile"
     }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  const { login, password } = store.state.auth;
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (to.params.login && to.params.password) {
+      login = to.params.login;
+      password = to.params.password;
+    }
     if (!login && !password) {
       next({
-        path: "/authorization",
-        params: { nextUrl: to.fullPath }
+        path: "/authorization"
       });
     } else {
       next();
     }
-  }
-  // else if (to.fullPath === "/authorization" && login && password) {
-  // }
-  else {
+  } else if (to.fullPath === "/authorization" && login && password) {
+    next(false);
+  } else {
     next();
   }
 });

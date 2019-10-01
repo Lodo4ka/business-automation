@@ -1,5 +1,7 @@
-const login = (store, data) => {
-  store.commit("login", data);
+export const loginWithRemember = (store, data) => {
+  store.commit("loginWithRemember", data);
 };
 
-export { login };
+export const loginWithoutRemember = (store, data) => {
+  store.commit("loginWithoutRemember", data);
+};
