@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 export default {
   data() {
@@ -83,8 +83,15 @@ export default {
     // if (login && password) {
     //   this.$router.push("/profile");
     // }
+    const that = this;
+    this.$store.subscribe(mutation => {
+      if (mutation.type === "login") {
+        // if (state.auth.login && state.auth.password)
+        that.$router.push("/profile");
+      }
+    });
   },
-  computed: mapState(["auth"]),
+  // computed: mapState(["auth"]),
   methods: {
     loginForm() {
       this.$store.dispatch("login", {
@@ -92,15 +99,15 @@ export default {
         password: this.password
       });
     }
-  },
-  watch: {
-    auth: {
-      deep: true,
-      handler(newVal) {
-        console.log(this.auth);
-        console.log(newVal);
-      }
-    }
   }
+  // watch: {
+  //   auth: {
+  //     deep: true,
+  //     handler(newVal) {
+  //       console.log(this.auth);
+  //       console.log(newVal);
+  //     }
+  //   }
+  // }
 };
 </script>

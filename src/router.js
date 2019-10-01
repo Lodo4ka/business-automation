@@ -43,10 +43,9 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
-  }
-  // else if (to.fullPath === "/authorization" && login && password) {
-  // }
-  else {
+  } else if (to.fullPath === "/authorization" && login && password) {
+    router.push(from.fullPath);
+  } else {
     next();
   }
 });
