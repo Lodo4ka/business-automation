@@ -73,8 +73,6 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
-
 export default {
   data() {
     return {
@@ -124,14 +122,5 @@ export default {
       });
     }
   }
-  // watch: {
-  //   auth: {
-  //     deep: true,
-  //     handler(newVal) {
-  //       console.log(this.auth);
-  //       console.log(newVal);
-  //     }
-  //   }
-  // }
 };
 </script>
