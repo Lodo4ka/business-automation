@@ -1,9 +1,9 @@
 <template>
   <p
     href="#"
-    class="block mt-2 text-lg leading-tight font-semibold text-gray-600 underline"
+    class="block mt-4 text-lg leading-tight font-semibold text-gray-600"
   >
-    {left}: <span class="font-normal no-underline">{right}</span>
+    {{ left }}: <span class="font-normal">{{ right }}</span>
   </p>
 </template>
 <script>

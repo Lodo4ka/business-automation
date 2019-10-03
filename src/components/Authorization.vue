@@ -12,7 +12,7 @@
         </div>
         <div class="md:w-2/3">
           <input
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full
+            class="bg-gray-200 appearance-none border-2 rounded w-full
             py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             id="inline-full-name"
             type="text"
@@ -84,11 +84,11 @@ export default {
   mounted() {
     this.$store.subscribe(mutation => {
       switch (mutation.type) {
-        case "loginWithRemember": {
+        case "LOGIN_WITH_REMEMBER": {
           this.routeToProfile();
           break;
         }
-        case "loginWithoutRemember": {
+        case "LOGIN_WITHOUT_REMEMBER": {
           this.routeToProfile();
           break;
         }
@@ -97,16 +97,15 @@ export default {
       }
     });
   },
-  // computed: mapState(["auth"]),
   methods: {
     loginForm() {
       if (this.remember) {
-        this.$store.dispatch("loginWithRemember", {
+        this.$store.dispatch("LOGIN_WITH_REMEMBER", {
           login: this.login,
           password: this.password
         });
       } else {
-        this.$store.dispatch("loginWithoutRemember", {
+        this.$store.dispatch("LOGIN_WITHOUT_REMEMBER", {
           login: this.login,
           password: this.password
         });
@@ -114,7 +113,7 @@ export default {
     },
     routeToProfile() {
       this.$router.push({
-        name: "profile",
+        name: "main",
         params: {
           login: this.login,
           password: this.password

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import store from "./store";
 
 Vue.use(Router);
 let login = localStorage.getItem("login");
@@ -24,8 +23,35 @@ const router = new Router({
       }
     },
     {
+      path: "/",
+      name: "main",
+      component: () => import("./components/MainLayout.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/loading",
+      name: "loading",
+      component: () => import("./components/Loading"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/error",
+      name: "error",
+      component: () => import("./components/ErrorPage"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "*",
-      redirect: "profile"
+      redirect: "main",
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

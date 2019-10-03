@@ -7,21 +7,33 @@
 </template>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.spinner {
+  position: relative;
+  color: black;
+  pointer-events: none;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+
+.spinner::after {
+  content: "";
+  position: absolute !important;
+  top: calc(50% - (1em / 2));
+  left: calc(50% - (1em / 2));
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  border: 2px solid currentColor;
+  border-radius: 9999px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  animation: spinAround 500ms infinite linear;
+}
+
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
